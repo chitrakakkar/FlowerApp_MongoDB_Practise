@@ -17,7 +17,8 @@
 <ul>
     {{#each flowers}}
         <li>
-            {{this.name}} is {{this.color}}
+            <a href="/details/{{this.name}}">{{this.name}}</a>
+
         </li>
     {{/each}}
 </ul>
