@@ -53,4 +53,18 @@ router.post('/addFlower', function (req, res, next)
 
 });
 
+router.put('/updateColor', function(req, res, next) {
+
+    var filter = { 'name' : req.body.name };
+    var update = { $set : { 'color' : req.body.color }};
+
+    req.db.collection('flowers').findOneAndUpdate(filter, update, function(err) {
+        if (err) {
+            return next(err);
+        }
+        return res.send({'color' : req.body.color})
+    })
+});
+
+
 module.exports = router;
