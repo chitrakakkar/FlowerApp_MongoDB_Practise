@@ -26,3 +26,10 @@
 {{#if color_filter}}
     <a href="/">Clear selection</a>
 {{/if}}
+<h2>Add NEW Flower</h2>
+<form action="/addFlower" method="POST">
+    Name<input type="text" name="name" placeholder="Name" required><br>
+    Color<input type ="text" name = "color" placeholder="Color" required><br>
+    Wikipedia Page <input type="text" name="wiki" placeholder="Wikipedia Page"><br>
+    <button type="submit">Save</button>
+</form>

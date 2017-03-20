@@ -41,4 +41,16 @@ router.get('/details/:flower', function(req, res, next) {
     });
 });
 
+router.post('/addFlower', function (req, res, next)
+{
+    req.db.collection('flowers').insertOne(req.body, function (err)
+    {
+        if(err){
+            return next(err);
+        }
+        return res.redirect('/')
+    });
+
+});
+
 module.exports = router;

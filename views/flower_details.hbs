@@ -1,5 +1,10 @@
 <h1>{{flower.name}}</h1>
+{{#if flower.image}}
 <img src ="/images/{{flower.image}}">
+{{else}}
+    <P>Sorry, no image for {{flower.name}}</P>
+{{/if}}
 <p>{{flower.name}} is {{flower.color}}</p>
 
-<P>Visit this flower's page at Wikipedia at the following link:<a href="{{flower.wiki}}">{{flower.wiki}}</a></P>
+<P>Visit this flower's page at Wikipedia at the following link:
+    <a href="{{flower.wiki}}">{{flower.wiki}}</a></P>
