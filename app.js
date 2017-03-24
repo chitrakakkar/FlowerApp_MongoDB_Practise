@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var flash = require('connect-flash');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -7,6 +8,7 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -29,6 +31,7 @@ app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(flash());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // This function will run before each route handler…
 
 
-    app.use('/', function (req, res, next)
+app.use('/', function (req, res, next)
 {
     req.db = db;
     next();
@@ -87,5 +90,12 @@ app.use(function (err, req, res, next)
         });
     });
 }); //end of MongoDb connect callback
+
+app.get('/flash', function(req, res){
+    // Set a flash message by passing the key, followed by the value, to req.flash().
+    req.flash('message',  'no duplicate value allowed');
+    res.redirect('/');
+});
+
 
 module.exports = app;

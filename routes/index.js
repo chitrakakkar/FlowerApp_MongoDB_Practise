@@ -40,25 +40,40 @@ router.get('/details/:flower', function(req, res, next) {
         return res.render('flower_details', {'flower':doc});
     });
 });
-
+// handle a post request
 router.post('/addFlower', function (req, res, next)
 {
-    req.db.collection('flowers').insertOne(req.body, function (err)
-    {
-        if(err){
-            return next(err);
-        }
-        return res.redirect('/')
+    // would go through the each flower in the list
+    req.db.collection('flowers').find({'name':req.body.name}).toArray( function (err, doc)
+        {
+            console.log(doc);
+            console.log(doc.length); // gives the number of duplicate entry
+            //checks if the list for the flower name is 0;then add it else give an error message
+            if(doc.length == 0)
+            {
+                req.db.collection('flowers').insertOne(req.body, function (err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    return res.redirect('/'); // directs to home-page
+                });
+            }
+            else {
+                res.send("Duplicate Entry");
+
+            }
+        //req.body has all the form data
     });
-
 });
-
-router.put('/updateColor', function(req, res, next) {
+//to update a database, use put method especially when you know the URL
+router.put('/updateColor', function(req, res, next)
+{
 
     var filter = { 'name' : req.body.name };
     var update = { $set : { 'color' : req.body.color }};
 
-    req.db.collection('flowers').findOneAndUpdate(filter, update, function(err) {
+    req.db.collection('flowers').findOneAndUpdate(filter, update, function(err)
+    {
         if (err) {
             return next(err);
         }
@@ -66,5 +81,18 @@ router.put('/updateColor', function(req, res, next) {
     })
 });
 
+router.post('/deleteFlower', function (req, res, next)
+{
+    console.log(req.body);
+    req.db.collection('flowers').deleteOne({'name':req.body.name},function (err)
+    {
+    if (err)
+    {
+        return next(err);
+    }
+    return res.render('delete_flower.hbs',{'Flowers': req.body} ); // directs to home-page
+    });
+    
+});
 
 module.exports = router;
