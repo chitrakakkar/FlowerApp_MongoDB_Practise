@@ -1,0 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/workspace.xml
+public/javascripts/
+node_modules
+views/delete_flower.hbs
