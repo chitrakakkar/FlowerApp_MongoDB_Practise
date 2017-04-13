@@ -32,7 +32,7 @@ app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(flash());
+//app.use(flash());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -92,11 +92,11 @@ app.use(function (err, req, res, next)
     });
 }); //end of MongoDb connect callback
 
-app.get('/flash', function(req, res){
-    // Set a flash message by passing the key, followed by the value, to req.flash().
-    req.flash('message',  'no duplicate value allowed');
-    res.redirect('/');
-});
+// app.get('/flash', function(req, res){
+//     // Set a flash message by passing the key, followed by the value, to req.flash().
+//     req.flash('message',  'no duplicate value allowed');
+//     res.redirect('/');
+// });
 
 
 module.exports = app;
