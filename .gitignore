@@ -1,5 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/workspace.xml
-public/javascripts/
+.idea
 node_modules
+.DS_Store
 
